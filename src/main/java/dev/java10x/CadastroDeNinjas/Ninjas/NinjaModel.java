@@ -31,6 +31,7 @@ public class NinjaModel {
 
     private int idade;
 
+    @Column(unique = true, nullable = false) // Coluna unica, sem nulos
     private String email;
 
     // @ManyToOne - Um ninja tem uma unica missão
