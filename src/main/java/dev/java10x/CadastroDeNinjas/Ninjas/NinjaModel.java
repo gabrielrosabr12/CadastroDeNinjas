@@ -19,10 +19,10 @@ public class NinjaModel {
 
     @Id //será o id primary key do db, é da biblioteca jakarta.persiste
     @GeneratedValue(strategy = GenerationType.IDENTITY) //autoincrement a partir do numero 1, passamos a estratégia
-    Long id;
-    String nome;
-    int idade;
-    String email;
+    private Long id;
+    private String nome;
+    private int idade;
+    private String email;
 
 
     public NinjaModel(){}
