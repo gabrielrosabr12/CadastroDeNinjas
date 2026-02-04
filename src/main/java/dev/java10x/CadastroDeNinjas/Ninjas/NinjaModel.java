@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 /// <br>Para isso iremos baixar uma dependencia nova SpringJPA
 /// <br>Dependencia para trabalharmos com persistência de dados.
 /// ----
-/// <br>Essa Entidade terá os atributos:
+/// Essa Entidade terá os atributos:
 /// * nome
 /// * idade
 /// * email
@@ -27,16 +27,20 @@ public class NinjaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //autoincrement a partir do número 1, passamos a estratégia
     private Long id;
 
+    @Column(name = "nome")
     private String nome;
 
+    @Column(name = "idade")
     private int idade;
 
     @Column(unique = true, nullable = false) // Coluna unica, sem nulos
     private String email;
+
+    @Column(name = "img_url")
+    private String imgUrl;
 
     // @ManyToOne - Um ninja tem uma unica missão
     @ManyToOne
     @JoinColumn(name = "missoes_id") // Foreign Key chave estrangeira
     private MissoesModel missoes;
 }
-
