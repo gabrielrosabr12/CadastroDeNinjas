@@ -24,7 +24,7 @@ public class NinjaController {
     @PostMapping("/criar")
     public String criarNinja(){ return "Ninja criado";}
 
-    // Procurar ninja por id (READ)
+    // Listar todos os ninjas (READ)
     @GetMapping("/listar")
     public List<NinjaModel> mostrarTodosNinjas() {
         return ninjaService.listarNinjas();
@@ -32,10 +32,13 @@ public class NinjaController {
 
 
     // Mostrar ninja por id  (READ)
-    @GetMapping("/procurarid")
-    public String procurarPorId() {
-        return "Esse é o ninja especifico";
+    // @PathVariable é quando eu quero que o usuario me envie algo que vai estar na URL
+    // essa variavel fica dentro da chaves {}
+    @GetMapping("/listar/{id}")
+    public NinjaModel listarPorId(@PathVariable Long id) {
+        return ninjaService.listarNinjasPorId(id);
     }
+
     // Alterar dados dos ninjas (UPDATE)
     //PutMapping serve para atualizar no banco de dados
     @PutMapping("/alterarid")
