@@ -24,7 +24,7 @@ public class NinjaController {
     // mandamos em forma de json serializado para o banco
     // @RequestBody significa que no corpo da requisição vai ter os dados do json
     @PostMapping("/criar")
-    public NinjaModel criarNinja(@RequestBody NinjaModel ninjaCriado){
+    public NinjaDTO criarNinja(@RequestBody NinjaDTO ninjaCriado){
         return ninjaService.criarNinja(ninjaCriado);
     }
 
