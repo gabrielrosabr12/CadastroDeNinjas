@@ -39,6 +39,10 @@ public class NinjaModel {
     @Column(name = "img_url")
     private String imgUrl;
 
+    //Como temos DTO podemos adicionar após a migration
+    @Column(name = "rank")
+    private String rank;
+
     // @ManyToOne - Um ninja tem uma unica missão
     @ManyToOne
     @JoinColumn(name = "missoes_id") // Foreign Key chave estrangeira
