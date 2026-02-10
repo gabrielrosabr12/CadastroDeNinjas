@@ -45,9 +45,9 @@ public class NinjaController {
 
     // Alterar dados dos ninjas (UPDATE)
     //PutMapping serve para atualizar no banco de dados
-    @PutMapping("/alterarid")
-    public String alterarNinhjaPorId() {
-        return "Alterando ninja por ID";
+    @PutMapping("/alterar/{id}")
+    public NinjaModel alterarNinhjaPorId(@PathVariable Long id, @RequestBody NinjaModel ninjaAtualizado) {
+        return ninjaService.atualizarNinja(id,ninjaAtualizado);
     }
 
 
