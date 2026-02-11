@@ -24,13 +24,13 @@ public class NinjaController {
     // mandamos em forma de json serializado para o banco
     // @RequestBody significa que no corpo da requisição vai ter os dados do json
     @PostMapping("/criar")
-    public NinjaModel criarNinja(@RequestBody NinjaModel ninjaCriado){
+    public NinjaDTO criarNinja(@RequestBody NinjaDTO ninjaCriado){
         return ninjaService.criarNinja(ninjaCriado);
     }
 
     // Listar todos os ninjas (READ)
     @GetMapping("/listar")
-    public List<NinjaModel> mostrarTodosNinjas() {
+    public List<NinjaDTO> mostrarTodosNinjas() {
         return ninjaService.listarNinjas();
     }
 
@@ -39,14 +39,14 @@ public class NinjaController {
     // @PathVariable é quando eu quero que o usuario me envie algo que vai estar na URL
     // essa variavel fica dentro da chaves {}
     @GetMapping("/listar/{id}")
-    public NinjaModel listarPorId(@PathVariable Long id) {
+    public NinjaDTO listarPorId(@PathVariable Long id) {
         return ninjaService.listarNinjasPorId(id);
     }
 
     // Alterar dados dos ninjas (UPDATE)
     //PutMapping serve para atualizar no banco de dados
     @PutMapping("/alterar/{id}")
-    public NinjaModel alterarNinhjaPorId(@PathVariable Long id, @RequestBody NinjaModel ninjaAtualizado) {
+    public NinjaDTO alterarNinhjaPorId(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado) {
         return ninjaService.atualizarNinja(id,ninjaAtualizado);
     }
 
