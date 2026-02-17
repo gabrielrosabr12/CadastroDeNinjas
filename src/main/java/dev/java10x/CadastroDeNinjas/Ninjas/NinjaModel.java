@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 /// Anotar com @Entity para declarar que esta classe é uma entidade do banco de dados
 /// <br>Para isso iremos baixar uma dependencia nova SpringJPA
@@ -21,6 +22,7 @@ import lombok.AllArgsConstructor;
 @Data // Lombok cria todos os getters e os setters
 @NoArgsConstructor //Lombok cria um construtor sem argumentos invisivel
 @AllArgsConstructor // Lombok cria um construtor com todos argumentos
+@ToString(exclude = "missoes")
 public class NinjaModel {
 
     @Id //será o id primary key do db, é da biblioteca jakarta.persiste
