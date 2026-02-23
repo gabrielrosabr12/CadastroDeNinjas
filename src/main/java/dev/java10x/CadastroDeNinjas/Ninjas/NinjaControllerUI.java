@@ -4,10 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -38,7 +36,51 @@ public class NinjaControllerUI {
             model.addAttribute("ninja",ninjaDTO);
 
             return "listarninjaid";
+        } else{
+            model.addAttribute("mensagem","Ninja não encontrado");
+            return "listarninjas";
         }
+
+    }
+
+    @GetMapping("/adicionar")
+    public String mostrarFormularioAdicionarNinja(Model model){
+        model.addAttribute("ninja", new NinjaDTO());
+        return "adicionarNinja";
+    }
+
+    @PostMapping("/salvar")
+    public String salvarNinja(@ModelAttribute NinjaDTO ninja, RedirectAttributes redirectAttributes){
+        ninjaService.criarNinja(ninja);
+        redirectAttributes.addFlashAttribute("mensagem","Ninja criado com sucesso!");
+        return "redirect:/ninjas/ui/listar";
+    }
+
+
+    @GetMapping("/alterar/{id}")
+    public String alterarNinhjaPorId(@PathVariable Long id, Model model) {
+        NinjaDTO ninja = ninjaService.listarNinjasPorId(id);
+
+        if (ninja != null) {
+            model.addAttribute("ninja", ninja);
+            // Podemos reaproveitar a mesma tela de adicionar!
+            return "adicionarNinja";
+        } else {
+            return "redirect:/ninjas/ui/listar";
+        }
+    }
+
+    // 2. ADICIONE ESTE AQUI (usado para RECEBER o clique do botão "Salvar" do formulário)
+    @PostMapping("/alterar/{id}")
+    public String salvarNinjaAlterado(@PathVariable Long id, @ModelAttribute NinjaDTO ninjaAtualizado, RedirectAttributes redirectAttributes) {
+
+        // Chama o serviço para atualizar o ninja no banco de dados
+        ninjaService.atualizarNinja(id, ninjaAtualizado);
+
+        // Envia a mensagem verde de sucesso para a tela de listagem
+        redirectAttributes.addFlashAttribute("mensagem", "Ninja " + ninjaAtualizado.getNome() + " atualizado com sucesso!");
+
+        // Redireciona de volta para a tabela
         return "redirect:/ninjas/ui/listar";
     }
 
