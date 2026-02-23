@@ -25,6 +25,27 @@
             letter-spacing: 1.5px;
         }
 
+        .mensagem {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Container para alinhar botões no topo da tabela */
+        .botao-adicionar {
+            width: 100%;
+            max-width: 1200px; /* Mesma largura máxima da sua tabela */
+            display: flex;
+            justify-content: flex-end; /* Joga os itens para a direita. Se quiser na esquerda, use flex-start */
+            margin-bottom: 15px;
+        }
+
         /* Estilos da Tabela */
         table {
             width: 100%;
@@ -82,7 +103,7 @@
         }
 
         /* Estilos dos Botões/Links de Ação */
-        td a, .btn-deletar, .btn-detalhes {
+        td a, .btn-deletar, .btn-detalhes, .btn-alterar, .btn-adicionar {
             text-decoration: none;
             padding: 8px 12px;
             border-radius: 4px;
@@ -94,7 +115,7 @@
             transition: background-color 0.3s, transform 0.1s;
         }
 
-        td a:active, .btn-deletar:active, .btn-detalhes:active {
+        td a:active, .btn-deletar:active, .btn-detalhes:active, .btn-alterar:active, .btn-adicionar:active {
             transform: scale(0.95);
         }
 
@@ -113,6 +134,25 @@
         td a:nth-of-type(2):hover {
             background-color: #d68910;
         }
+
+        .btn-adicionar {
+            background-color: #3273a8;
+            font-family: inherit;
+        }
+        .btn-adicionar:hover {
+            background-color: #5f2ab5;
+        }
+
+        .btn-alterar {
+            background-color: #ffcc00;
+            color: black;
+            font-family: inherit;
+        }
+        .btn-alterar:hover {
+            background-color: #ff6a00;
+
+        }
+
         /* Botão Ver detalhes (Verde) */
         .btn-detalhes {
             background-color: #32a852;
@@ -137,11 +177,19 @@
 </head>
 <body>
 <h1>Lista de ninjas</h1>
+<div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
+
+<div class="botao-adicionar">
+    <form th:action="@{/ninjas/ui/adicionar}" method="get">
+        <button type="submit" class="btn-adicionar">+ Adicionar Ninja</button>
+    </form>
+</div>
+
 <table>
     <thead>
     <tr>
         <th>ID</th>
-        <th>Imagem</th>
+<!--        <th>Imagem</th>-->
         <th>Nome</th>
         <th>Idade</th>
         <th>Email</th>
@@ -152,7 +200,7 @@
     <tbody>
     <tr th:each="ninja: ${ninjas}">
         <td th:text="${ninja.id}"></td>
-        <td><img th:src="${ninja.imgUrl}" width="100" height="100"></td>
+<!--        <td><img th:src="${ninja.imgUrl}" width="100" height="100"></td>-->
         <td th:text="${ninja.nome}"></td>
         <td th:text="${ninja.idade}"></td>
         <td th:text="${ninja.email}"></td>
@@ -166,8 +214,10 @@
             <form th:action="@{/ninjas/ui/listar/{id}(id=${ninja.id})}" method="get" style="display: inline;">
                 <button type="submit" class="btn-detalhes">Detalhes</button>
             </form>
-            <a href="#">Alterar</a>
-            <form th:action="@{/ninjas/ui/delete/{id}(id=${ninja.id})}" method="post" style="display: inline;">
+            <form th:action="@{/ninjas/ui/alterar/{id}(id=${ninja.id})}" method="get" style="display: inline;">
+                <button type="submit" class="btn-alterar">Alterar</button>
+            </form>
+            <form th:action="@{/ninjas/ui/delete/{id}(id=${ninja.id})}" method="get" style="display: inline;">
                 <button type="submit" class="btn-deletar">Deletar</button>
             </form>
         </td>
