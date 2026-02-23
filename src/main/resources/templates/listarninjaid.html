@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Especificações do Ninja</title>
+
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Container Principal */
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 20px;
+        }
+
+        /* Botão Voltar */
+        .acoes-header {
+            margin-bottom: 20px;
+        }
+
+        .btn-voltar {
+            background-color: #95a5a6;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn-voltar:hover { background-color: #7f8c8d; }
+        .btn-voltar:active { transform: scale(0.95); }
+
+        /* Cartão de Perfil (Ficha do Personagem) */
+        .profile-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Lado Esquerdo: Imagem de Perfil */
+        .profile-image-container {
+            width: 40%;
+            background-color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            position: relative;
+        }
+
+        .profile-image-container img {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 6px solid #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Lado Direito: Especificações */
+        .profile-details {
+            width: 60%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .profile-details h1 {
+            color: #2c3e50;
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        .badge-id {
+            display: inline-block;
+            background-color: #e0e6ed;
+            color: #7f8c8d;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        /* Grid de Especificações */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* Item Individual da Grid */
+        .spec-item {
+            background-color: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        /* Destaque para cores diferentes dependendo do atributo (opcional) */
+        .spec-item.rank { border-left-color: #e74c3c; }
+        .spec-item.idade { border-left-color: #f39c12; }
+        .spec-item.email { border-left-color: #2ecc71; }
+        .spec-item.missoes {
+            border-left-color: #9b59b6;
+            grid-column: span 2; /* Faz as missões ocuparem a largura total */
+        }
+
+        .spec-label {
+            display: block;
+            font-size: 12px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .spec-value {
+            font-size: 16px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 768px) {
+            .profile-card { flex-direction: column; }
+            .profile-image-container { width: 100%; padding: 40px 20px; }
+            .profile-details { width: 100%; padding: 30px 20px; }
+            .specs-grid { grid-template-columns: 1fr; }
+            .spec-item.missoes { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="acoes-header">
+        <form th:action="@{/ninjas/ui/listar}" method="get" style="margin: 0;">
+            <button type="submit" class="btn-voltar">⬅ Voltar para a Lista</button>
+        </form>
+    </div>
+
+    <div class="profile-card">
+
+        <div class="profile-image-container">
+            <img th:src="${ninja.imgUrl}" alt="Foto do Personagem">
+        </div>
+
+        <div class="profile-details">
+            <h1 th:text="${ninja.nome}">Nome do Ninja</h1>
+            <span class="badge-id">ID: <span th:text="${ninja.id}"></span></span>
+
+            <div class="specs-grid">
+                <div class="spec-item rank">
+                    <span class="spec-label">Rank</span>
+                    <span class="spec-value" th:text="${ninja.rank}"></span>
+                </div>
+
+                <div class="spec-item idade">
+                    <span class="spec-label">Idade</span>
+                    <span class="spec-value" th:text="${ninja.idade}"> Anos</span>
+                </div>
+
+                <div class="spec-item email">
+                    <span class="spec-label">Email de Contato</span>
+                    <span class="spec-value" th:text="${ninja.email}"></span>
+                </div>
+
+                <div class="spec-item missoes">
+                    <span class="spec-label">Missões Atuais</span>
+                    <span class="spec-value" th:text="${ninja.missoes}"></span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

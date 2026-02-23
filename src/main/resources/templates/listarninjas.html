@@ -82,7 +82,7 @@
         }
 
         /* Estilos dos Botões/Links de Ação */
-        td a, .btn-deletar {
+        td a, .btn-deletar, .btn-detalhes {
             text-decoration: none;
             padding: 8px 12px;
             border-radius: 4px;
@@ -94,7 +94,7 @@
             transition: background-color 0.3s, transform 0.1s;
         }
 
-        td a:active, .btn-deletar:active {
+        td a:active, .btn-deletar:active, .btn-detalhes:active {
             transform: scale(0.95);
         }
 
@@ -113,7 +113,14 @@
         td a:nth-of-type(2):hover {
             background-color: #d68910;
         }
-
+        /* Botão Ver detalhes (Verde) */
+        .btn-detalhes {
+            background-color: #32a852;
+            font-family: inherit;
+        }
+        .btn-detalhes:hover {
+            background-color: #89b52a;
+        }
         /* Botão: Deletar (Vermelho) */
         .btn-deletar {
             background-color: #e74c3c;
@@ -155,7 +162,10 @@
             <span th:if="${ninja.missoes == null}">Sem Missões cadastradas</span>
         </td>
         <td>
-            <a href="#">Ver detalhes</a>
+
+            <form th:action="@{/ninjas/ui/listar/{id}(id=${ninja.id})}" method="get" style="display: inline;">
+                <button type="submit" class="btn-detalhes">Detalhes</button>
+            </form>
             <a href="#">Alterar</a>
             <form th:action="@{/ninjas/ui/delete/{id}(id=${ninja.id})}" method="post" style="display: inline;">
                 <button type="submit" class="btn-deletar">Deletar</button>
