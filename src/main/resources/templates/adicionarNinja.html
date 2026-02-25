@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Adicionar Ninja</title>
+
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* Container do Formulário (Visual de Cartão) */
+        .form-container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        /* Estilo da Mensagem do Thymeleaf (Sucesso/Erro) */
+        .mensagem {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Estrutura do Formulário */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        /* Campos de Input */
+        input[type="text"],
+        input[type="number"] {
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #dcdde1;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            background-color: #f8fafc;
+            transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #3498db;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #a4b0be;
+        }
+
+        /* Container para os Botões no final do form */
+        .botoes-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        /* Estilos Base dos Botões */
+        button, .btn-voltar {
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            transition: background-color 0.3s, transform 0.1s;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button:active, .btn-voltar:active {
+            transform: scale(0.97);
+        }
+
+        /* Botão Voltar (Cinza) */
+        .btn-voltar {
+            background-color: #95a5a6;
+            width: 35%; /* Ocupa um terço do espaço */
+        }
+        .btn-voltar:hover {
+            background-color: #7f8c8d;
+        }
+
+        /* Botão Salvar (Verde) */
+        .btn-salvar {
+            background-color: #32a852;
+            flex-grow: 1; /* Ocupa o restante do espaço */
+        }
+        .btn-salvar:hover {
+            background-color: #288642;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h1>Adicionar Novo Ninja</h1>
+
+    <div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
+
+    <form th:action="${ninja.id == null} ? @{/ninjas/ui/salvar} : @{/ninjas/ui/alterar/{id}(id=${ninja.id})}" th:object="${ninja}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" th:field="*{nome}" placeholder="Ex: Kakashi Hatake" required/>
+
+        <label for="email">Email</label>
+        <input type="text" id="email" th:field="*{email}" placeholder="ninja@konoha.com" required/>
+
+        <label for="imgUrl">URL da Imagem</label>
+        <input type="text" id="imgUrl" th:field="*{imgUrl}" placeholder="https://site.com/foto.jpg" required/>
+
+        <label for="idade">Idade</label>
+        <input type="number" id="idade" th:field="*{idade}" placeholder="Ex: 26" required/>
+
+        <label for="rank">Rank</label>
+        <input type="text" id="rank" th:field="*{rank}" placeholder="Ex: Jounin" required/>
+
+        <label for="missoes">Missões</label>
+        <input type="text" id="missoes" th:field="*{missoes}" placeholder="ID da Missão ou Status" required/>
+
+        <div class="botoes-container">
+            <a th:href="@{/ninjas/ui/listar}" class="btn-voltar">⬅ Voltar</a>
+
+            <button type="submit" class="btn-salvar">Salvar Ninja</button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>
