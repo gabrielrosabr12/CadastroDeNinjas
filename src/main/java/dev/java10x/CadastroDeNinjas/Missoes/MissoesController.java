@@ -2,10 +2,7 @@ package dev.java10x.CadastroDeNinjas.Missoes;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,6 +42,37 @@ public class MissoesController {
         }
         else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Missão não encontrada!");
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deletarMissao(@PathVariable Long id){
+        MissoesModel missoesModel = missoesService.listarMissoesId(id);
+
+        if (missoesModel == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id da missão não encontrado nos registros");
+        }
+
+        if (missoesModel.getNinjas().isEmpty()){
+            missoesService.deletarMissoes(missoesModel);
+            return ResponseEntity.ok("Missão deletada com sucesso!");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi possível deletar pois ainda há ninjas vinculados a está missão!");
+        }
+    }
+
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<?> atualizarMissao(@PathVariable Long id,@RequestBody MissoesModel missaoAtualizada){
+        MissoesModel missaoAnterior = missoesService.listarMissoesId(id);
+
+        if (missaoAnterior != null){
+            missoesService.atualizarMissoes(missaoAnterior,missaoAtualizada);
+            return ResponseEntity.ok("Missão Atualizada com sucesso!");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Não foi possível atualizar pois esta missão não foi encontrada nos registros!");
         }
     }
 

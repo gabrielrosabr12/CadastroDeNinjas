@@ -1,7 +1,6 @@
 package dev.java10x.CadastroDeNinjas.Missoes;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,4 +27,15 @@ public class MissoesService {
         return missao.orElse(null);
     }
 
+
+    public void deletarMissoes(MissoesModel missoesModel){
+        missoesRepository.delete(missoesModel);
+    }
+
+    public void atualizarMissoes(MissoesModel missaoAnterior,MissoesModel missaoAtualizada){
+        missaoAnterior.setId(missaoAtualizada.getId());
+        missaoAnterior.setNome(missaoAtualizada.getNome());
+        missaoAnterior.setDificuldade(missaoAtualizada.getDificuldade());
+        missoesRepository.save(missaoAnterior);
+    }
 }
