@@ -23,7 +23,7 @@ public class MissoesController {
 
     @GetMapping("/listar")
     public ResponseEntity<?> listarMissoes(){
-        List<MissoesModel> missoes = missoesService.listarMissoes();
+        List<MissoesDTO> missoes = missoesService.listarMissoes();
 
         if (!missoes.isEmpty()){
             return ResponseEntity.ok(missoes);
@@ -35,10 +35,10 @@ public class MissoesController {
 
     @GetMapping("/listar/{id}")
     public ResponseEntity<?> listarMissoesId(@PathVariable Long id){
-        MissoesModel missoesModel = missoesService.listarMissoesId(id);
+        MissoesDTO missoesDTO = missoesService.listarMissoesId(id);
 
-        if (missoesModel != null){
-            return ResponseEntity.ok(missoesModel);
+        if (missoesDTO != null){
+            return ResponseEntity.ok(missoesDTO);
         }
         else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Missão não encontrada!");
@@ -47,14 +47,14 @@ public class MissoesController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deletarMissao(@PathVariable Long id){
-        MissoesModel missoesModel = missoesService.listarMissoesId(id);
+        MissoesDTO missoesDTO = missoesService.listarMissoesId(id);
 
-        if (missoesModel == null){
+        if (missoesDTO == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id da missão não encontrado nos registros");
         }
 
-        if (missoesModel.getNinjas().isEmpty()){
-            missoesService.deletarMissoes(missoesModel);
+        if (missoesDTO.getNinjas().isEmpty()){
+            missoesService.deletarMissoes(missoesDTO.getId());
             return ResponseEntity.ok("Missão deletada com sucesso!");
         }
         else{
@@ -64,16 +64,17 @@ public class MissoesController {
 
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<?> atualizarMissao(@PathVariable Long id,@RequestBody MissoesModel missaoAtualizada){
-        MissoesModel missaoAnterior = missoesService.listarMissoesId(id);
+            MissoesDTO missaoDTO = missoesService.listarMissoesId(id);
 
-        if (missaoAnterior != null){
-            missoesService.atualizarMissoes(missaoAnterior,missaoAtualizada);
-            return ResponseEntity.ok("Missão Atualizada com sucesso!");
-        }
-        else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Não foi possível atualizar pois esta missão não foi encontrada nos registros!");
-        }
+            if (missaoDTO!=null){
+                missoesService.atualizarMissoes(id,missaoAtualizada);
+                return ResponseEntity.ok("Missão atualizada com sucesso!");
+            }
+            else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Missao do id: ("+id+") não encontrado, verifique o id e tente novamente!");
+            }
+
+
     }
 
 
