@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:td="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Missoes</title>
+    <link rel="stylesheet" th:href="@{/css/listar.css}">
+</head>
+<body>
+<h1>Lista de Missoes
+</h1>
+<div th:if="${mensagem}" class="mensagem" th:text="${mensagem}">asdasd</div>
+<div class="botao-adicionar">
+ <form th:action="@{/missoes/ui/criar}" method="get">
+     <button class="btn-adicionar">+ Adicinar nova missão</button>
+ </form>
+</div>
+<table class="table-data">
+
+    <thead>
+    <th>Id</th>
+    <th>Nome</th>
+    <th>Dificuldade</th>
+    <th>Ninjas</th>
+    <th>Botoes</th>
+    </thead>
+    <tbody >
+    <tr th:each="missao: ${missoes}">
+    <td th:text="${missao.id}"></td>
+    <td th:text="${missao.nome}"></td>
+    <td th:text="${missao.dificuldade}"></td>
+    <td th:text="${missao.ninjas}"></td>
+    <td>
+        <form th:action="@{/missoes/ui/listar/{id}(id=${missao.id})}"  method="get" display="inline">
+            <button type="submit" class="btn-detalhes">Detalhes</button>
+        </form>
+        <form th:action="@{/missoes/ui/atualizar/{id}(id=${missao.id})}" method="get" display="inline">
+            <button type="submit" class="btn-alterar">Alterar</button>
+        </form>
+        <form th:action="@{/missoes/ui/deletar/{id}(id=${missao.id})}" method="post" display="inline"
+              onclick="return confirm('Tem certeza que deseja deletar esta missão?')">
+            <button type="submit" class="btn-deletar">Deletar</button>
+        </form>
+    </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

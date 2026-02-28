@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Missao</title>
+    <link rel="stylesheet" th:href="@{/css/adicionar.css}">
+</head>
+<body>
+<div class="form-container">
+<h1 th:text="${missao.id} == null ? 'Adicionar Missoes' : 'Alterando Missoes'"></h1>
+    <div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
+    <form th:action="${missao.id} == null ? @{/missoes/ui/salvar} : @{/missoes/ui/atualizar/{id}(id=${missao.id})}"   th:object="${missao}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" th:field="*{nome}" placeholder="Salvar Fulano">
+
+        <label for="dificuldade">Dificuldade</label>
+        <input type="text" id="dificuldade" th:field="*{dificuldade}" placeholder="Extremamente dificil">
+
+        <div class="botoes-container">
+            <a th:href="@{/missoes/ui/listar}" class="btn-voltar">⬅ Voltar</a>
+
+            <button type="submit" class="btn-salvar">Salvar Missao</button>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>
