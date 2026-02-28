@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Adicionar Missao</title>
+    <title th:text="${missao.id} == null ? 'Adicionar Missoes' : 'Alterando Missoes'"></title>
     <link rel="stylesheet" th:href="@{/css/adicionar.css}">
 </head>
 <body>

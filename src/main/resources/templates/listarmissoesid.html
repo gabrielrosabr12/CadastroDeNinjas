@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="missao: ${missao.nome}">Missao</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Missão</title>
+    <link rel="stylesheet" th:href="@{/css/missao-card.css}">
 </head>
 <body>
+
+<div class="container">
+    <div class="mission-card">
+        <div class="mission-header">
+            <span class="badge" th:text="${missao.dificuldade}">Rank S</span>
+            <h1 th:text="${missao.nome}">Escoltura do Senhor da Terra</h1>
+        </div>
+
+        <div class="mission-body">
+            <h3>Ninjas Designados</h3>
+            <ul class="ninja-list">
+                <li th:each="ninja : ${missao.ninjas}" class="ninja-item">
+                    <div class="ninja-info">
+                        <span class="ninja-icon">👤</span>
+                        <span th:text="${ninja.nome}">Naruto Uzumaki</span>
+                    </div>
+                </li>
+                <li th:if="${#lists.isEmpty(missao.ninjas)}" class="no-ninjas">
+                    Nenhum ninja atribuído a esta missão.
+                </li>
+            </ul>
+        </div>
+
+        <div class="mission-footer">
+            <a th:href="@{/missoes/ui/listar}" class="btn-back">Voltar para a Lista</a>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
