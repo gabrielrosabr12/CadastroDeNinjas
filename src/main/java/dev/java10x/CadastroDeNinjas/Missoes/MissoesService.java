@@ -33,7 +33,7 @@ public class MissoesService {
         missoesRepository.deleteById(id);
     }
 
-    public void atualizarMissoes(Long id,MissoesModel missaoAtualizada){
+    public void atualizarMissoes(Long id,MissoesDTO missaoAtualizada){
         MissoesDTO missoesDTO = listarMissoesId(id);
 
         MissoesModel missoesModel = missoesMapper.map(missoesDTO);
@@ -42,4 +42,11 @@ public class MissoesService {
         missoesModel.setDificuldade(missaoAtualizada.getDificuldade());
         missoesRepository.save(missoesModel);
     }
+
+    public MissoesDTO criarMissao(MissoesDTO missao){
+        MissoesModel missoesModel = missoesMapper.map(missao);
+        missoesRepository.save(missoesModel);
+        return missoesMapper.map(missoesModel);
+    }
+
 }
