@@ -1,0 +1,167 @@
+/* Estilos Gerais */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.mensagem {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid #c3e6cb;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Container para alinhar botões no topo da tabela */
+.botao-adicionar {
+    width: 100%;
+    max-width: 1200px; /* Mesma largura máxima da sua tabela */
+    display: flex;
+    justify-content: flex-end; /* Joga os itens para a direita. Se quiser na esquerda, use flex-start */
+    margin-bottom: 15px;
+}
+
+/* Estilos da Tabela */
+table {
+    width: 100%;
+    max-width: 1200px;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden; /* Mantém as bordas arredondadas com o cabeçalho */
+}
+
+thead {
+    background-color: #2c3e50;
+    color: #ffffff;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: middle;
+}
+
+th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+/* Efeito Hover nas linhas */
+tbody tr:hover {
+    background-color: #f1f5f9;
+    transition: background-color 0.3s ease;
+}
+
+/* Estilo da Imagem */
+td img {
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Estilo da Coluna de Missões */
+td span {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Container de Ações */
+td:last-child {
+    display: flex;
+    gap: 10px; /* Espaço entre os botões */
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Estilos dos Botões/Links de Ação */
+td a, .btn-deletar, .btn-detalhes, .btn-alterar, .btn-adicionar {
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+td a:active, .btn-deletar:active, .btn-detalhes:active, .btn-alterar:active, .btn-adicionar:active {
+    transform: scale(0.95);
+}
+
+/* Botão: Ver Informações (Azul) */
+td a:first-of-type {
+    background-color: #3498db;
+}
+td a:first-of-type:hover {
+    background-color: #2980b9;
+}
+
+/* Botão: Alterar (Amarelo/Laranja) */
+td a:nth-of-type(2) {
+    background-color: #f39c12;
+}
+td a:nth-of-type(2):hover {
+    background-color: #d68910;
+}
+
+.btn-adicionar {
+    background-color: #3273a8;
+    font-family: inherit;
+}
+.btn-adicionar:hover {
+    background-color: #5f2ab5;
+}
+
+.btn-alterar {
+    background-color: #ffcc00;
+    color: black;
+    font-family: inherit;
+}
+.btn-alterar:hover {
+    background-color: #ff6a00;
+
+}
+
+/* Botão Ver detalhes (Verde) */
+.btn-detalhes {
+    background-color: #32a852;
+    font-family: inherit;
+}
+.btn-detalhes:hover {
+    background-color: #89b52a;
+}
+/* Botão: Deletar (Vermelho) */
+.btn-deletar {
+    background-color: #e74c3c;
+    font-family: inherit;
+}
+.btn-deletar:hover {
+    background-color: #c0392b;
+}
+
+form {
+    margin: 0; /* Remove margem padrão do formulário */
+}
