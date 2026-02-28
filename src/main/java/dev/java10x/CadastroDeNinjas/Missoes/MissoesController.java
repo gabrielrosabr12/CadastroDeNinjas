@@ -16,7 +16,7 @@ public class MissoesController {
         this.missoesService = missoesService;
     }
 
-    @GetMapping("/boasvindas")
+    @GetMapping("")
     public String boasvindas(){
         return "Olá mundo";
     }
@@ -63,7 +63,7 @@ public class MissoesController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<?> atualizarMissao(@PathVariable Long id,@RequestBody MissoesModel missaoAtualizada){
+    public ResponseEntity<?> atualizarMissao(@PathVariable Long id,@RequestBody MissoesDTO missaoAtualizada){
             MissoesDTO missaoDTO = missoesService.listarMissoesId(id);
 
             if (missaoDTO!=null){
