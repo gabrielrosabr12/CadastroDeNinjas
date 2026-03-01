@@ -1,5 +1,6 @@
 package dev.java10x.CadastroDeNinjas.Missoes;
 
+import dev.java10x.CadastroDeNinjas.infra.exceptions.MissaoNotFoundExceptions;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class MissoesService {
 
     public MissoesDTO listarMissoesId(Long id){
         Optional<MissoesModel> missao = missoesRepository.findById(id);
-        return missao.map(missoesMapper::map).orElse(null);
+        return missao.map(missoesMapper::map).orElseThrow(() -> new MissaoNotFoundExceptions("Missao do id ("+id+") não encontrada!"));
     }
 
 
