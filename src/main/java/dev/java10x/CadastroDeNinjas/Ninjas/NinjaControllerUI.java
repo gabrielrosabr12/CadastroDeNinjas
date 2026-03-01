@@ -70,7 +70,8 @@ public class NinjaControllerUI {
     }
 
     // 2. ADICIONE ESTE AQUI (usado para RECEBER o clique do botão "Salvar" do formulário)
-    @PostMapping("/alterar/{id}")
+    // Foi alterado de @PostMapping para @PatchMapping pois o post é ideal para a criação
+    @PatchMapping("/alterar/{id}")
     public String salvarNinjaAlterado(@PathVariable Long id, @ModelAttribute NinjaDTO ninjaAtualizado, RedirectAttributes redirectAttributes) {
 
         // Chama o serviço para atualizar o ninja no banco de dados

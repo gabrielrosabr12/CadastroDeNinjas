@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/ninjas")
@@ -57,8 +58,9 @@ public class NinjaController {
     }
 
     // Alterar dados dos ninjas (UPDATE)
-    //PutMapping serve para atualizar no banco de dados
-    @PutMapping("/alterar/{id}")
+    // PutMapping serve para atualizar no banco de dados enviando todas as informacoes
+    // Foi refatorado para PatchMapping para enviar somente dados que o usuario queira
+    @PatchMapping("/alterar/{id}")
     public ResponseEntity<?> alterarNinhjaPorId(@PathVariable Long id, @RequestBody NinjaDTO ninjaAtualizado) {
         if (ninjaService.listarNinjasPorId(id) != null){
             NinjaDTO ninja = ninjaService.atualizarNinja(id,ninjaAtualizado);

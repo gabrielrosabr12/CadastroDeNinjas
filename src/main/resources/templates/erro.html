@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ops! Algo deu errado</title>
+    <link rel="stylesheet" th:href="@{/css/listar.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Ocorreu um problema!</h1>
+    <p th:text="${mensagem}"></p>
+    <a th:href="@{/ninjas/ui/listar}" class="btn">Voltar para a Vila</a>
+</div>
+</body>
+</html>

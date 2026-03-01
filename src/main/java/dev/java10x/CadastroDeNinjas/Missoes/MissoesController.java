@@ -62,7 +62,10 @@ public class MissoesController {
         }
     }
 
-    @PutMapping("/atualizar/{id}")
+    // Foi colocado @PatchMapping no lugar do @PutMapping pois o put serve para
+    // substituir completamente um objeto que ja existe
+    // Patch permite atualizações parciais
+    @PatchMapping("/atualizar/{id}")
     public ResponseEntity<?> atualizarMissao(@PathVariable Long id,@RequestBody MissoesDTO missaoAtualizada){
             MissoesDTO missaoDTO = missoesService.listarMissoesId(id);
 

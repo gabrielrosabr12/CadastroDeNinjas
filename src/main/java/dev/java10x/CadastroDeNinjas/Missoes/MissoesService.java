@@ -1,5 +1,6 @@
 package dev.java10x.CadastroDeNinjas.Missoes;
 
+import dev.java10x.CadastroDeNinjas.infra.exceptions.MissaoNotFoundExceptions;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class MissoesService {
 
     public MissoesDTO listarMissoesId(Long id){
         Optional<MissoesModel> missao = missoesRepository.findById(id);
-        return missao.map(missoesMapper::map).orElse(null);
+        return missao.map(missoesMapper::map).orElseThrow(() -> new MissaoNotFoundExceptions("Missao do id ("+id+") não encontrada!"));
     }
 
 
@@ -34,12 +35,20 @@ public class MissoesService {
     }
 
     public void atualizarMissoes(Long id,MissoesDTO missaoAtualizada){
-        MissoesDTO missoesDTO = listarMissoesId(id);
+        // 1. Refatorei a logica pois utilizar uma query somente para a busca do id não estava eficiente,
+        // Decidi buscar pela própria funcao a entidade
+        MissoesModel missoesModel = missoesRepository.findById(id)
+                .orElseThrow(() -> new MissaoNotFoundExceptions("A Missão de ID ("+id+") que está tentando alterar não existe!"));
 
-        MissoesModel missoesModel = missoesMapper.map(missoesDTO);
-        missoesModel.setId(missaoAtualizada.getId());
-        missoesModel.setNome(missaoAtualizada.getNome());
-        missoesModel.setDificuldade(missaoAtualizada.getDificuldade());
+        missoesModel.setId(id);
+
+        // 2. Atualiza apenas o que veio no DTO (Lógica de Patch)
+        if (missaoAtualizada.getNome()!=null){
+            missoesModel.setNome(missaoAtualizada.getNome());
+        }
+        if (missaoAtualizada.getDificuldade()!=null){
+            missoesModel.setDificuldade(missaoAtualizada.getDificuldade());
+        }
         missoesRepository.save(missoesModel);
     }
 
