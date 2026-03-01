@@ -65,7 +65,7 @@ public class MissoesControllerUI {
         }
     }
 
-    @PostMapping("/atualizar/{id}")
+    @PatchMapping("/atualizar/{id}")
     public String atualizarMissoes(@ModelAttribute MissoesDTO missoesDTO,@PathVariable Long id,Model model,RedirectAttributes redirectAttributes){
         missoesService.atualizarMissoes(id,missoesDTO);
         redirectAttributes.addFlashAttribute("mensagem", "A Missão: ("+missoesDTO.getNome()+") Foi atualizada com sucesso!");

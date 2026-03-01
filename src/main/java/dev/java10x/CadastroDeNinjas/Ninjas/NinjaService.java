@@ -53,16 +53,32 @@ public class NinjaService {
 
     // Atualizar um ninja
     public NinjaDTO atualizarNinja(Long id, NinjaDTO ninjaAtualizado){
-        Optional<NinjaModel> ninjaExistente = ninjaRepository.findById(id);
+        NinjaModel ninjaExistente = ninjaRepository.findById(id)
+                .orElseThrow(() -> new NinjaNotFoundExceptions("O ninja do ID ("+id+") não consta no banco de dados!"));
 
-        if (ninjaExistente.isPresent()){
-            NinjaModel ninjaModel =  ninjaMapper.map(ninjaAtualizado);
-            ninjaModel.setId(id);
-            NinjaModel ninjaSalvo = ninjaRepository.save(ninjaModel);
-            return ninjaMapper.map(ninjaSalvo);
+        if (ninjaAtualizado.getNome() != null){
+            ninjaExistente.setNome(ninjaAtualizado.getNome());
+        }
+        if (ninjaAtualizado.getEmail() != null){
+            ninjaExistente.setEmail(ninjaAtualizado.getEmail());
+        }
+        if (ninjaAtualizado.getIdade() > 0) {
+            ninjaExistente.setIdade(ninjaAtualizado.getIdade());
+        }
+        if (ninjaAtualizado.getMissoes() != null){
+            ninjaExistente.setMissoes(ninjaAtualizado.getMissoes());
+        }
+        if (ninjaAtualizado.getRank() != null){
+            ninjaExistente.setRank(ninjaAtualizado.getRank());
+        }
+        if (ninjaAtualizado.getImgUrl() != null){
+            ninjaExistente.setImgUrl(ninjaAtualizado.getImgUrl());
         }
 
-        return null;
+        NinjaModel ninjaSalvo = ninjaRepository.save(ninjaExistente);
+
+        return ninjaMapper.map(ninjaSalvo);
+
     }
 
 }
