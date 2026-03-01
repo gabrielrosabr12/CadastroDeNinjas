@@ -1,5 +1,6 @@
 package dev.java10x.CadastroDeNinjas.Ninjas;
 
+import dev.java10x.CadastroDeNinjas.infra.exceptions.NinjaNotFoundExceptions;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class NinjaService {
     // orElse é para caso não existir o ninja com aquele id, vai retornar nulo
     public NinjaDTO listarNinjasPorId(Long id){
         Optional<NinjaModel> ninjaModel = ninjaRepository.findById(id);
-        return ninjaModel.map(ninjaMapper::map).orElse(null);
+        return ninjaModel.map(ninjaMapper::map).orElseThrow(() -> new NinjaNotFoundExceptions("Ninja não encontrado com o ID ("+id+")"));
     }
 
     // Criar um novo ninja
