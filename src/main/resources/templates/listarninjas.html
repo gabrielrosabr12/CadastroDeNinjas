@@ -20,39 +20,47 @@
     <thead>
     <tr>
         <th>ID</th>
-<!--        <th>Imagem</th>-->
+        <th>Imagem</th>
         <th>Nome</th>
         <th>Idade</th>
         <th>Email</th>
         <th>Rank</th>
         <th>Missões</th>
         <th>Ações</th>
-        <th></th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="ninja: ${ninjas}">
-        <td th:text="${ninja.id}"></td>
-        <td><img th:src="${ninja.imgUrl}" width="100" height="100"></td>
-        <td th:text="${ninja.nome}"></td>
-        <td th:text="${ninja.idade}"></td>
-        <td th:text="${ninja.email}"></td>
-        <td th:text="${ninja.rank}"></td>
-        <td>
-            <span th:if="${ninja.missoes}">Nome: <span th:text="${ninja.missoes.nome}"></span>, Dificuldade: <span th:text="${ninja.missoes.dificuldade}"></span></span>
-            <span th:if="${ninja.missoes == null}">Sem Missões cadastradas</span>
-        </td>
-        <td>
+        <td data-label="ID" th:text="${ninja.id}"></td>
 
-            <form th:action="@{/ninjas/ui/listar/{id}(id=${ninja.id})}" method="get" style="display: inline;">
-                <button type="submit" class="btn-detalhes">Detalhes</button>
-            </form>
-            <form th:action="@{/ninjas/ui/alterar/{id}(id=${ninja.id})}" method="get" style="display: inline;">
-                <button type="submit" class="btn-alterar">Alterar</button>
-            </form>
-            <form th:action="@{/ninjas/ui/delete/{id}(id=${ninja.id})}" method="get" style="display: inline;">
-                <button type="submit" class="btn-deletar">Deletar</button>
-            </form>
+        <td data-label="Imagem">
+            <img th:src="${ninja.imgUrl}" width="80" height="80" style="object-fit: cover; border-radius: 50%;">
+        </td>
+
+        <td data-label="Nome" th:text="${ninja.nome}"></td>
+        <td data-label="Idade" th:text="${ninja.idade}"></td>
+        <td data-label="Email" th:text="${ninja.email}"></td>
+        <td data-label="Rank" th:text="${ninja.rank}"></td>
+
+        <td data-label="Missões">
+            <span th:if="${ninja.missoes}">
+                <span th:text="${ninja.missoes.nome}"></span> (<span th:text="${ninja.missoes.dificuldade}"></span>)
+            </span>
+            <span th:if="${ninja.missoes == null}">Sem Missões</span>
+        </td>
+
+        <td data-label="Ações">
+            <div class="acoes-container">
+                <form th:action="@{/ninjas/ui/listar/{id}(id=${ninja.id})}" method="get" style="display: inline;">
+                    <button type="submit" class="btn-detalhes">Detalhes</button>
+                </form>
+                <form th:action="@{/ninjas/ui/alterar/{id}(id=${ninja.id})}" method="get" style="display: inline;">
+                    <button type="submit" class="btn-alterar">Alterar</button>
+                </form>
+                <form th:action="@{/ninjas/ui/delete/{id}(id=${ninja.id})}" method="get" style="display: inline;">
+                    <button type="submit" class="btn-deletar">Deletar</button>
+                </form>
+            </div>
         </td>
     </tr>
     </tbody>
