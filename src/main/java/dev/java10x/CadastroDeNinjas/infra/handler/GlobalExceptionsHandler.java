@@ -23,7 +23,10 @@ public class GlobalExceptionsHandler {
     }
 
     @ExceptionHandler(MissaoNotFoundExceptions.class)
-    public ResponseEntity<String> handleMissaoNotFound(MissaoNotFoundExceptions ex){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    public ModelAndView handleMissaoNotFound(MissaoNotFoundExceptions ex){
+        ModelAndView modelAndView = new ModelAndView("erro");
+        modelAndView.addObject("mensagem", ex.getMessage());
+        modelAndView.setStatus(HttpStatus.NOT_FOUND);
+        return modelAndView;
     }
 }
