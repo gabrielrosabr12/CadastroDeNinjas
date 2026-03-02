@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
@@ -21,8 +23,13 @@ public class SecurityConfig {
         * User padrão como implementação*/
         UserDetails user = User.builder()
                 .username("user")
-                .password("{noop}senha") //{noop} evita uso de codificador
+                .password("$2a$12$wVbR6MbG6/lTW62HzagWHOgqCsLiCraap/M3PAGwdEDGyaGAYDesG")
                 .build();
         return new InMemoryUserDetailsManager(user);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
