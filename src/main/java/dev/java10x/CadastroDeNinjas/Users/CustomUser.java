@@ -24,6 +24,8 @@ public class CustomUser implements UserDetails {
 
     private String password;
 
+    private TipoUsuario role;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<>();

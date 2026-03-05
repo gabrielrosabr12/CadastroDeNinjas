@@ -1,4 +1,4 @@
-package dev.java10x.CadastroDeNinjas.security;
+package dev.java10x.CadastroDeNinjas.infra.security;
 
 import dev.java10x.CadastroDeNinjas.Users.UserRepository;
 import lombok.AllArgsConstructor;
